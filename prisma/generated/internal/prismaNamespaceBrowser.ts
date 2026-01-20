@@ -51,7 +51,10 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Healthcheck: 'Healthcheck'
+  Healthcheck: 'Healthcheck',
+  User: 'User',
+  MalAccount: 'MalAccount',
+  Session: 'Session'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -78,6 +81,42 @@ export const HealthcheckScalarFieldEnum = {
 export type HealthcheckScalarFieldEnum = (typeof HealthcheckScalarFieldEnum)[keyof typeof HealthcheckScalarFieldEnum]
 
 
+export const UserScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  malUserId: 'malUserId',
+  malUsername: 'malUsername'
+} as const
+
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const MalAccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  accessToken: 'accessToken',
+  refreshToken: 'refreshToken',
+  expiresAt: 'expiresAt',
+  tokenType: 'tokenType',
+  scope: 'scope',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MalAccountScalarFieldEnum = (typeof MalAccountScalarFieldEnum)[keyof typeof MalAccountScalarFieldEnum]
+
+
+export const SessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tokenHash: 'tokenHash',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -92,4 +131,12 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

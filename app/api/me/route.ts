@@ -1,15 +1,19 @@
-import { cookies } from "next/headers";
+import { getCurrentUser } from "../../../auth";
+import { prisma } from "../../../prisma";
 
 export async function GET() {
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("mal_access_token")?.value;
-  if (!accessToken) return new Response("Not logged in", { status: 401 });
+  const user = await getCurrentUser();
+  if (!user) return new Response("Not logged in", { status: 401 });
 
-  const res = await fetch("https://api.myanimelist.net/v2/users/@me", {
-    headers: { Authorization: `Bearer ${accessToken}` },
+  const account = await prisma.malAccount.findUnique({
+    where: { userId: user.id },
+    select: { expiresAt: true },
   });
 
-  if (!res.ok) return new Response("MAL request failed", { status: 502 });
-  const me = await res.json();
-  return Response.json(me);
+  return Response.json({
+    id: user.id,
+    malUserId: user.malUserId,
+    malUsername: user.malUsername,
+    tokenExpiresAt: account?.expiresAt ?? null,
+  });
 }

@@ -44,3 +44,18 @@ export { Prisma }
  * 
  */
 export type Healthcheck = Prisma.HealthcheckModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel
+/**
+ * Model MalAccount
+ * 
+ */
+export type MalAccount = Prisma.MalAccountModel
+/**
+ * Model Session
+ * 
+ */
+export type Session = Prisma.SessionModel
