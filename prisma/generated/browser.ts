@@ -37,3 +37,13 @@ export type MalAccount = Prisma.MalAccountModel
  * 
  */
 export type Session = Prisma.SessionModel
+/**
+ * Model Anime
+ * 
+ */
+export type Anime = Prisma.AnimeModel
+/**
+ * Model UserAnime
+ * 
+ */
+export type UserAnime = Prisma.UserAnimeModel

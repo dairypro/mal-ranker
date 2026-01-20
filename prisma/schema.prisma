@@ -19,42 +19,85 @@ model Healthcheck {
 }
 
 model User {
-  id          String      @id @default(cuid())
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // MAL identity
-  malUserId   Int         @unique
+  malUserId   Int    @unique
   malUsername String
 
-  malAccount  MalAccount?
-  sessions    Session[]
+  malAccount MalAccount?
+  sessions   Session[]
+
+  userAnime UserAnime[]
+
+  lastMalSyncAt DateTime?
 }
 
 model MalAccount {
-  id           String   @id @default(cuid())
-  userId       String   @unique
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   accessToken  String
   refreshToken String
   expiresAt    DateTime
 
-  tokenType    String?
-  scope        String?
+  tokenType String?
+  scope     String?
 
-  updatedAt    DateTime @updatedAt
+  updatedAt DateTime @updatedAt
 }
 
 model Session {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  tokenHash String   @unique
+  tokenHash String @unique
 
   createdAt DateTime @default(now())
   expiresAt DateTime
 
   @@index([userId])
+}
+
+enum UserAnimeStatus {
+  WATCHING
+  COMPLETED
+}
+
+model Anime {
+  id         String @id @default(cuid())
+  malAnimeId Int    @unique
+
+  title     String
+  imageUrl  String? // main picture
+  updatedAt DateTime @updatedAt
+
+  userAnime UserAnime[]
+}
+
+model UserAnime {
+  id      String @id @default(cuid())
+  userId  String
+  animeId String
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anime Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  status         UserAnimeStatus
+  removedFromMAL Boolean         @default(false)
+  needsRanking   Boolean         @default(true)
+
+  firstSeenAt DateTime @default(now())
+  lastSeenAt  DateTime @default(now())
+
+  // (optional, useful later)
+  comparisonsCount Int @default(0)
+
+  @@unique([userId, animeId])
+  @@index([userId, removedFromMAL, needsRanking])
+  @@index([userId, status])
 }

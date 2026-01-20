@@ -54,7 +54,9 @@ export const ModelName = {
   Healthcheck: 'Healthcheck',
   User: 'User',
   MalAccount: 'MalAccount',
-  Session: 'Session'
+  Session: 'Session',
+  Anime: 'Anime',
+  UserAnime: 'UserAnime'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -86,7 +88,8 @@ export const UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   malUserId: 'malUserId',
-  malUsername: 'malUsername'
+  malUsername: 'malUsername',
+  lastMalSyncAt: 'lastMalSyncAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -115,6 +118,32 @@ export const SessionScalarFieldEnum = {
 } as const
 
 export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
+export const AnimeScalarFieldEnum = {
+  id: 'id',
+  malAnimeId: 'malAnimeId',
+  title: 'title',
+  imageUrl: 'imageUrl',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AnimeScalarFieldEnum = (typeof AnimeScalarFieldEnum)[keyof typeof AnimeScalarFieldEnum]
+
+
+export const UserAnimeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  animeId: 'animeId',
+  status: 'status',
+  removedFromMAL: 'removedFromMAL',
+  needsRanking: 'needsRanking',
+  firstSeenAt: 'firstSeenAt',
+  lastSeenAt: 'lastSeenAt',
+  comparisonsCount: 'comparisonsCount'
+} as const
+
+export type UserAnimeScalarFieldEnum = (typeof UserAnimeScalarFieldEnum)[keyof typeof UserAnimeScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -40,6 +40,7 @@ export type UserMinAggregateOutputType = {
   updatedAt: Date | null
   malUserId: number | null
   malUsername: string | null
+  lastMalSyncAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -48,6 +49,7 @@ export type UserMaxAggregateOutputType = {
   updatedAt: Date | null
   malUserId: number | null
   malUsername: string | null
+  lastMalSyncAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -56,6 +58,7 @@ export type UserCountAggregateOutputType = {
   updatedAt: number
   malUserId: number
   malUsername: number
+  lastMalSyncAt: number
   _all: number
 }
 
@@ -74,6 +77,7 @@ export type UserMinAggregateInputType = {
   updatedAt?: true
   malUserId?: true
   malUsername?: true
+  lastMalSyncAt?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -82,6 +86,7 @@ export type UserMaxAggregateInputType = {
   updatedAt?: true
   malUserId?: true
   malUsername?: true
+  lastMalSyncAt?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -90,6 +95,7 @@ export type UserCountAggregateInputType = {
   updatedAt?: true
   malUserId?: true
   malUsername?: true
+  lastMalSyncAt?: true
   _all?: true
 }
 
@@ -185,6 +191,7 @@ export type UserGroupByOutputType = {
   updatedAt: Date
   malUserId: number
   malUsername: string
+  lastMalSyncAt: Date | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -216,8 +223,10 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   malUserId?: Prisma.IntFilter<"User"> | number
   malUsername?: Prisma.StringFilter<"User"> | string
+  lastMalSyncAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   malAccount?: Prisma.XOR<Prisma.MalAccountNullableScalarRelationFilter, Prisma.MalAccountWhereInput> | null
   sessions?: Prisma.SessionListRelationFilter
+  userAnime?: Prisma.UserAnimeListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -226,8 +235,10 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   malUserId?: Prisma.SortOrder
   malUsername?: Prisma.SortOrder
+  lastMalSyncAt?: Prisma.SortOrderInput | Prisma.SortOrder
   malAccount?: Prisma.MalAccountOrderByWithRelationInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
+  userAnime?: Prisma.UserAnimeOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -239,8 +250,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   malUsername?: Prisma.StringFilter<"User"> | string
+  lastMalSyncAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   malAccount?: Prisma.XOR<Prisma.MalAccountNullableScalarRelationFilter, Prisma.MalAccountWhereInput> | null
   sessions?: Prisma.SessionListRelationFilter
+  userAnime?: Prisma.UserAnimeListRelationFilter
 }, "id" | "malUserId">
 
 export type UserOrderByWithAggregationInput = {
@@ -249,6 +262,7 @@ export type UserOrderByWithAggregationInput = {
   updatedAt?: Prisma.SortOrder
   malUserId?: Prisma.SortOrder
   malUsername?: Prisma.SortOrder
+  lastMalSyncAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -265,6 +279,7 @@ export type UserScalarWhereWithAggregatesInput = {
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   malUserId?: Prisma.IntWithAggregatesFilter<"User"> | number
   malUsername?: Prisma.StringWithAggregatesFilter<"User"> | string
+  lastMalSyncAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
 }
 
 export type UserCreateInput = {
@@ -273,8 +288,10 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   malUserId: number
   malUsername: string
+  lastMalSyncAt?: Date | string | null
   malAccount?: Prisma.MalAccountCreateNestedOneWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userAnime?: Prisma.UserAnimeCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -283,8 +300,10 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   malUserId: number
   malUsername: string
+  lastMalSyncAt?: Date | string | null
   malAccount?: Prisma.MalAccountUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userAnime?: Prisma.UserAnimeUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -293,8 +312,10 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   malUserId?: Prisma.IntFieldUpdateOperationsInput | number
   malUsername?: Prisma.StringFieldUpdateOperationsInput | string
+  lastMalSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   malAccount?: Prisma.MalAccountUpdateOneWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userAnime?: Prisma.UserAnimeUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -303,8 +324,10 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   malUserId?: Prisma.IntFieldUpdateOperationsInput | number
   malUsername?: Prisma.StringFieldUpdateOperationsInput | string
+  lastMalSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   malAccount?: Prisma.MalAccountUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userAnime?: Prisma.UserAnimeUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -313,6 +336,7 @@ export type UserCreateManyInput = {
   updatedAt?: Date | string
   malUserId: number
   malUsername: string
+  lastMalSyncAt?: Date | string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -321,6 +345,7 @@ export type UserUpdateManyMutationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   malUserId?: Prisma.IntFieldUpdateOperationsInput | number
   malUsername?: Prisma.StringFieldUpdateOperationsInput | string
+  lastMalSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -329,6 +354,7 @@ export type UserUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   malUserId?: Prisma.IntFieldUpdateOperationsInput | number
   malUsername?: Prisma.StringFieldUpdateOperationsInput | string
+  lastMalSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -337,6 +363,7 @@ export type UserCountOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   malUserId?: Prisma.SortOrder
   malUsername?: Prisma.SortOrder
+  lastMalSyncAt?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -349,6 +376,7 @@ export type UserMaxOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   malUserId?: Prisma.SortOrder
   malUsername?: Prisma.SortOrder
+  lastMalSyncAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -357,6 +385,7 @@ export type UserMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   malUserId?: Prisma.SortOrder
   malUsername?: Prisma.SortOrder
+  lastMalSyncAt?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -374,6 +403,10 @@ export type IntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type UserCreateNestedOneWithoutMalAccountInput = {
@@ -404,13 +437,29 @@ export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSessionsInput, Prisma.UserUpdateWithoutSessionsInput>, Prisma.UserUncheckedUpdateWithoutSessionsInput>
 }
 
+export type UserCreateNestedOneWithoutUserAnimeInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUserAnimeInput, Prisma.UserUncheckedCreateWithoutUserAnimeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserAnimeInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutUserAnimeNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUserAnimeInput, Prisma.UserUncheckedCreateWithoutUserAnimeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserAnimeInput
+  upsert?: Prisma.UserUpsertWithoutUserAnimeInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUserAnimeInput, Prisma.UserUpdateWithoutUserAnimeInput>, Prisma.UserUncheckedUpdateWithoutUserAnimeInput>
+}
+
 export type UserCreateWithoutMalAccountInput = {
   id?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   malUserId: number
   malUsername: string
+  lastMalSyncAt?: Date | string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userAnime?: Prisma.UserAnimeCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMalAccountInput = {
@@ -419,7 +468,9 @@ export type UserUncheckedCreateWithoutMalAccountInput = {
   updatedAt?: Date | string
   malUserId: number
   malUsername: string
+  lastMalSyncAt?: Date | string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userAnime?: Prisma.UserAnimeUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMalAccountInput = {
@@ -444,7 +495,9 @@ export type UserUpdateWithoutMalAccountInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   malUserId?: Prisma.IntFieldUpdateOperationsInput | number
   malUsername?: Prisma.StringFieldUpdateOperationsInput | string
+  lastMalSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userAnime?: Prisma.UserAnimeUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMalAccountInput = {
@@ -453,7 +506,9 @@ export type UserUncheckedUpdateWithoutMalAccountInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   malUserId?: Prisma.IntFieldUpdateOperationsInput | number
   malUsername?: Prisma.StringFieldUpdateOperationsInput | string
+  lastMalSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userAnime?: Prisma.UserAnimeUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -462,7 +517,9 @@ export type UserCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   malUserId: number
   malUsername: string
+  lastMalSyncAt?: Date | string | null
   malAccount?: Prisma.MalAccountCreateNestedOneWithoutUserInput
+  userAnime?: Prisma.UserAnimeCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -471,7 +528,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   malUserId: number
   malUsername: string
+  lastMalSyncAt?: Date | string | null
   malAccount?: Prisma.MalAccountUncheckedCreateNestedOneWithoutUserInput
+  userAnime?: Prisma.UserAnimeUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -496,7 +555,9 @@ export type UserUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   malUserId?: Prisma.IntFieldUpdateOperationsInput | number
   malUsername?: Prisma.StringFieldUpdateOperationsInput | string
+  lastMalSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   malAccount?: Prisma.MalAccountUpdateOneWithoutUserNestedInput
+  userAnime?: Prisma.UserAnimeUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -505,7 +566,69 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   malUserId?: Prisma.IntFieldUpdateOperationsInput | number
   malUsername?: Prisma.StringFieldUpdateOperationsInput | string
+  lastMalSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   malAccount?: Prisma.MalAccountUncheckedUpdateOneWithoutUserNestedInput
+  userAnime?: Prisma.UserAnimeUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutUserAnimeInput = {
+  id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  malUserId: number
+  malUsername: string
+  lastMalSyncAt?: Date | string | null
+  malAccount?: Prisma.MalAccountCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutUserAnimeInput = {
+  id?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  malUserId: number
+  malUsername: string
+  lastMalSyncAt?: Date | string | null
+  malAccount?: Prisma.MalAccountUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutUserAnimeInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutUserAnimeInput, Prisma.UserUncheckedCreateWithoutUserAnimeInput>
+}
+
+export type UserUpsertWithoutUserAnimeInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutUserAnimeInput, Prisma.UserUncheckedUpdateWithoutUserAnimeInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutUserAnimeInput, Prisma.UserUncheckedCreateWithoutUserAnimeInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutUserAnimeInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutUserAnimeInput, Prisma.UserUncheckedUpdateWithoutUserAnimeInput>
+}
+
+export type UserUpdateWithoutUserAnimeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  malUserId?: Prisma.IntFieldUpdateOperationsInput | number
+  malUsername?: Prisma.StringFieldUpdateOperationsInput | string
+  lastMalSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  malAccount?: Prisma.MalAccountUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutUserAnimeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  malUserId?: Prisma.IntFieldUpdateOperationsInput | number
+  malUsername?: Prisma.StringFieldUpdateOperationsInput | string
+  lastMalSyncAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  malAccount?: Prisma.MalAccountUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -515,10 +638,12 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
 
 export type UserCountOutputType = {
   sessions: number
+  userAnime: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+  userAnime?: boolean | UserCountOutputTypeCountUserAnimeArgs
 }
 
 /**
@@ -538,6 +663,13 @@ export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.SessionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUserAnimeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserAnimeWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -545,8 +677,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   malUserId?: boolean
   malUsername?: boolean
+  lastMalSyncAt?: boolean
   malAccount?: boolean | Prisma.User$malAccountArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  userAnime?: boolean | Prisma.User$userAnimeArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -556,6 +690,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   updatedAt?: boolean
   malUserId?: boolean
   malUsername?: boolean
+  lastMalSyncAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -564,6 +699,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   updatedAt?: boolean
   malUserId?: boolean
   malUsername?: boolean
+  lastMalSyncAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -572,12 +708,14 @@ export type UserSelectScalar = {
   updatedAt?: boolean
   malUserId?: boolean
   malUsername?: boolean
+  lastMalSyncAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "malUserId" | "malUsername", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "malUserId" | "malUsername" | "lastMalSyncAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   malAccount?: boolean | Prisma.User$malAccountArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  userAnime?: boolean | Prisma.User$userAnimeArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -588,6 +726,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     malAccount: Prisma.$MalAccountPayload<ExtArgs> | null
     sessions: Prisma.$SessionPayload<ExtArgs>[]
+    userAnime: Prisma.$UserAnimePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -595,6 +734,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     updatedAt: Date
     malUserId: number
     malUsername: string
+    lastMalSyncAt: Date | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -991,6 +1131,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   malAccount<T extends Prisma.User$malAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$malAccountArgs<ExtArgs>>): Prisma.Prisma__MalAccountClient<runtime.Types.Result.GetResult<Prisma.$MalAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  userAnime<T extends Prisma.User$userAnimeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$userAnimeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserAnimePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1025,6 +1166,7 @@ export interface UserFieldRefs {
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly malUserId: Prisma.FieldRef<"User", 'Int'>
   readonly malUsername: Prisma.FieldRef<"User", 'String'>
+  readonly lastMalSyncAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 
@@ -1453,6 +1595,30 @@ export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+}
+
+/**
+ * User.userAnime
+ */
+export type User$userAnimeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserAnime
+   */
+  select?: Prisma.UserAnimeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserAnime
+   */
+  omit?: Prisma.UserAnimeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserAnimeInclude<ExtArgs> | null
+  where?: Prisma.UserAnimeWhereInput
+  orderBy?: Prisma.UserAnimeOrderByWithRelationInput | Prisma.UserAnimeOrderByWithRelationInput[]
+  cursor?: Prisma.UserAnimeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserAnimeScalarFieldEnum | Prisma.UserAnimeScalarFieldEnum[]
 }
 
 /**
