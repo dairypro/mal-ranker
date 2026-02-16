@@ -16,6 +16,7 @@ export async function GET() {
       userId: user.id,
       removedFromMAL: false,
       status: { in: ELIGIBLE_STATUSES },
+      comparisonsCount: { gt: 0 },
     },
     select: {
       animeId: true,

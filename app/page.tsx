@@ -368,11 +368,19 @@ export default function HomePage() {
                 </div>
 
                 <div className="mt-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 p-4">
-                  {loadingRanked && <div className="text-sm text-zinc-400">Loading ranked list...</div>}
+                  {data.needsRankingCount > 0 && (
+                    <div className="text-sm text-zinc-400">
+                      Showing partial list from anime you have already compared.
+                    </div>
+                  )}
+
+                  {loadingRanked && (
+                    <div className="text-sm text-zinc-400">Loading ranked list...</div>
+                  )}
 
                   {!loadingRanked && ranked.length === 0 && (
                     <div className="text-sm text-zinc-400">
-                      No ranked items yet. Start ranking to generate scores.
+                      No compared anime yet. Start ranking to build your list.
                     </div>
                   )}
 

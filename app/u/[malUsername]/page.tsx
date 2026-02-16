@@ -43,6 +43,7 @@ async function getPublicRankedList(malUsername: string): Promise<{ username: str
       userId: user.id,
       removedFromMAL: false,
       status: { in: [UserAnimeStatus.WATCHING, UserAnimeStatus.COMPLETED] },
+      comparisonsCount: { gt: 0 },
     },
     select: {
       animeId: true,
