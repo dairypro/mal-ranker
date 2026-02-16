@@ -56,7 +56,9 @@ export const ModelName = {
   MalAccount: 'MalAccount',
   Session: 'Session',
   Anime: 'Anime',
-  UserAnime: 'UserAnime'
+  UserAnime: 'UserAnime',
+  Rating: 'Rating',
+  Comparison: 'Comparison'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -144,6 +146,28 @@ export const UserAnimeScalarFieldEnum = {
 } as const
 
 export type UserAnimeScalarFieldEnum = (typeof UserAnimeScalarFieldEnum)[keyof typeof UserAnimeScalarFieldEnum]
+
+
+export const RatingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  animeId: 'animeId',
+  value: 'value',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RatingScalarFieldEnum = (typeof RatingScalarFieldEnum)[keyof typeof RatingScalarFieldEnum]
+
+
+export const ComparisonScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  winnerAnimeId: 'winnerAnimeId',
+  loserAnimeId: 'loserAnimeId',
+  createdAt: 'createdAt'
+} as const
+
+export type ComparisonScalarFieldEnum = (typeof ComparisonScalarFieldEnum)[keyof typeof ComparisonScalarFieldEnum]
 
 
 export const SortOrder = {

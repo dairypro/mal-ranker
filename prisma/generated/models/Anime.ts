@@ -217,6 +217,9 @@ export type AnimeWhereInput = {
   imageUrl?: Prisma.StringNullableFilter<"Anime"> | string | null
   updatedAt?: Prisma.DateTimeFilter<"Anime"> | Date | string
   userAnime?: Prisma.UserAnimeListRelationFilter
+  ratings?: Prisma.RatingListRelationFilter
+  comparisonsWon?: Prisma.ComparisonListRelationFilter
+  comparisonsLost?: Prisma.ComparisonListRelationFilter
 }
 
 export type AnimeOrderByWithRelationInput = {
@@ -226,6 +229,9 @@ export type AnimeOrderByWithRelationInput = {
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userAnime?: Prisma.UserAnimeOrderByRelationAggregateInput
+  ratings?: Prisma.RatingOrderByRelationAggregateInput
+  comparisonsWon?: Prisma.ComparisonOrderByRelationAggregateInput
+  comparisonsLost?: Prisma.ComparisonOrderByRelationAggregateInput
 }
 
 export type AnimeWhereUniqueInput = Prisma.AtLeast<{
@@ -238,6 +244,9 @@ export type AnimeWhereUniqueInput = Prisma.AtLeast<{
   imageUrl?: Prisma.StringNullableFilter<"Anime"> | string | null
   updatedAt?: Prisma.DateTimeFilter<"Anime"> | Date | string
   userAnime?: Prisma.UserAnimeListRelationFilter
+  ratings?: Prisma.RatingListRelationFilter
+  comparisonsWon?: Prisma.ComparisonListRelationFilter
+  comparisonsLost?: Prisma.ComparisonListRelationFilter
 }, "id" | "malAnimeId">
 
 export type AnimeOrderByWithAggregationInput = {
@@ -271,6 +280,9 @@ export type AnimeCreateInput = {
   imageUrl?: string | null
   updatedAt?: Date | string
   userAnime?: Prisma.UserAnimeCreateNestedManyWithoutAnimeInput
+  ratings?: Prisma.RatingCreateNestedManyWithoutAnimeInput
+  comparisonsWon?: Prisma.ComparisonCreateNestedManyWithoutWinnerAnimeInput
+  comparisonsLost?: Prisma.ComparisonCreateNestedManyWithoutLoserAnimeInput
 }
 
 export type AnimeUncheckedCreateInput = {
@@ -280,6 +292,9 @@ export type AnimeUncheckedCreateInput = {
   imageUrl?: string | null
   updatedAt?: Date | string
   userAnime?: Prisma.UserAnimeUncheckedCreateNestedManyWithoutAnimeInput
+  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutAnimeInput
+  comparisonsWon?: Prisma.ComparisonUncheckedCreateNestedManyWithoutWinnerAnimeInput
+  comparisonsLost?: Prisma.ComparisonUncheckedCreateNestedManyWithoutLoserAnimeInput
 }
 
 export type AnimeUpdateInput = {
@@ -289,6 +304,9 @@ export type AnimeUpdateInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userAnime?: Prisma.UserAnimeUpdateManyWithoutAnimeNestedInput
+  ratings?: Prisma.RatingUpdateManyWithoutAnimeNestedInput
+  comparisonsWon?: Prisma.ComparisonUpdateManyWithoutWinnerAnimeNestedInput
+  comparisonsLost?: Prisma.ComparisonUpdateManyWithoutLoserAnimeNestedInput
 }
 
 export type AnimeUncheckedUpdateInput = {
@@ -298,6 +316,9 @@ export type AnimeUncheckedUpdateInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userAnime?: Prisma.UserAnimeUncheckedUpdateManyWithoutAnimeNestedInput
+  ratings?: Prisma.RatingUncheckedUpdateManyWithoutAnimeNestedInput
+  comparisonsWon?: Prisma.ComparisonUncheckedUpdateManyWithoutWinnerAnimeNestedInput
+  comparisonsLost?: Prisma.ComparisonUncheckedUpdateManyWithoutLoserAnimeNestedInput
 }
 
 export type AnimeCreateManyInput = {
@@ -375,12 +396,57 @@ export type AnimeUpdateOneRequiredWithoutUserAnimeNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AnimeUpdateToOneWithWhereWithoutUserAnimeInput, Prisma.AnimeUpdateWithoutUserAnimeInput>, Prisma.AnimeUncheckedUpdateWithoutUserAnimeInput>
 }
 
+export type AnimeCreateNestedOneWithoutRatingsInput = {
+  create?: Prisma.XOR<Prisma.AnimeCreateWithoutRatingsInput, Prisma.AnimeUncheckedCreateWithoutRatingsInput>
+  connectOrCreate?: Prisma.AnimeCreateOrConnectWithoutRatingsInput
+  connect?: Prisma.AnimeWhereUniqueInput
+}
+
+export type AnimeUpdateOneRequiredWithoutRatingsNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimeCreateWithoutRatingsInput, Prisma.AnimeUncheckedCreateWithoutRatingsInput>
+  connectOrCreate?: Prisma.AnimeCreateOrConnectWithoutRatingsInput
+  upsert?: Prisma.AnimeUpsertWithoutRatingsInput
+  connect?: Prisma.AnimeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AnimeUpdateToOneWithWhereWithoutRatingsInput, Prisma.AnimeUpdateWithoutRatingsInput>, Prisma.AnimeUncheckedUpdateWithoutRatingsInput>
+}
+
+export type AnimeCreateNestedOneWithoutComparisonsWonInput = {
+  create?: Prisma.XOR<Prisma.AnimeCreateWithoutComparisonsWonInput, Prisma.AnimeUncheckedCreateWithoutComparisonsWonInput>
+  connectOrCreate?: Prisma.AnimeCreateOrConnectWithoutComparisonsWonInput
+  connect?: Prisma.AnimeWhereUniqueInput
+}
+
+export type AnimeCreateNestedOneWithoutComparisonsLostInput = {
+  create?: Prisma.XOR<Prisma.AnimeCreateWithoutComparisonsLostInput, Prisma.AnimeUncheckedCreateWithoutComparisonsLostInput>
+  connectOrCreate?: Prisma.AnimeCreateOrConnectWithoutComparisonsLostInput
+  connect?: Prisma.AnimeWhereUniqueInput
+}
+
+export type AnimeUpdateOneRequiredWithoutComparisonsWonNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimeCreateWithoutComparisonsWonInput, Prisma.AnimeUncheckedCreateWithoutComparisonsWonInput>
+  connectOrCreate?: Prisma.AnimeCreateOrConnectWithoutComparisonsWonInput
+  upsert?: Prisma.AnimeUpsertWithoutComparisonsWonInput
+  connect?: Prisma.AnimeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AnimeUpdateToOneWithWhereWithoutComparisonsWonInput, Prisma.AnimeUpdateWithoutComparisonsWonInput>, Prisma.AnimeUncheckedUpdateWithoutComparisonsWonInput>
+}
+
+export type AnimeUpdateOneRequiredWithoutComparisonsLostNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimeCreateWithoutComparisonsLostInput, Prisma.AnimeUncheckedCreateWithoutComparisonsLostInput>
+  connectOrCreate?: Prisma.AnimeCreateOrConnectWithoutComparisonsLostInput
+  upsert?: Prisma.AnimeUpsertWithoutComparisonsLostInput
+  connect?: Prisma.AnimeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AnimeUpdateToOneWithWhereWithoutComparisonsLostInput, Prisma.AnimeUpdateWithoutComparisonsLostInput>, Prisma.AnimeUncheckedUpdateWithoutComparisonsLostInput>
+}
+
 export type AnimeCreateWithoutUserAnimeInput = {
   id?: string
   malAnimeId: number
   title: string
   imageUrl?: string | null
   updatedAt?: Date | string
+  ratings?: Prisma.RatingCreateNestedManyWithoutAnimeInput
+  comparisonsWon?: Prisma.ComparisonCreateNestedManyWithoutWinnerAnimeInput
+  comparisonsLost?: Prisma.ComparisonCreateNestedManyWithoutLoserAnimeInput
 }
 
 export type AnimeUncheckedCreateWithoutUserAnimeInput = {
@@ -389,6 +455,9 @@ export type AnimeUncheckedCreateWithoutUserAnimeInput = {
   title: string
   imageUrl?: string | null
   updatedAt?: Date | string
+  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutAnimeInput
+  comparisonsWon?: Prisma.ComparisonUncheckedCreateNestedManyWithoutWinnerAnimeInput
+  comparisonsLost?: Prisma.ComparisonUncheckedCreateNestedManyWithoutLoserAnimeInput
 }
 
 export type AnimeCreateOrConnectWithoutUserAnimeInput = {
@@ -413,6 +482,9 @@ export type AnimeUpdateWithoutUserAnimeInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ratings?: Prisma.RatingUpdateManyWithoutAnimeNestedInput
+  comparisonsWon?: Prisma.ComparisonUpdateManyWithoutWinnerAnimeNestedInput
+  comparisonsLost?: Prisma.ComparisonUpdateManyWithoutLoserAnimeNestedInput
 }
 
 export type AnimeUncheckedUpdateWithoutUserAnimeInput = {
@@ -421,6 +493,189 @@ export type AnimeUncheckedUpdateWithoutUserAnimeInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ratings?: Prisma.RatingUncheckedUpdateManyWithoutAnimeNestedInput
+  comparisonsWon?: Prisma.ComparisonUncheckedUpdateManyWithoutWinnerAnimeNestedInput
+  comparisonsLost?: Prisma.ComparisonUncheckedUpdateManyWithoutLoserAnimeNestedInput
+}
+
+export type AnimeCreateWithoutRatingsInput = {
+  id?: string
+  malAnimeId: number
+  title: string
+  imageUrl?: string | null
+  updatedAt?: Date | string
+  userAnime?: Prisma.UserAnimeCreateNestedManyWithoutAnimeInput
+  comparisonsWon?: Prisma.ComparisonCreateNestedManyWithoutWinnerAnimeInput
+  comparisonsLost?: Prisma.ComparisonCreateNestedManyWithoutLoserAnimeInput
+}
+
+export type AnimeUncheckedCreateWithoutRatingsInput = {
+  id?: string
+  malAnimeId: number
+  title: string
+  imageUrl?: string | null
+  updatedAt?: Date | string
+  userAnime?: Prisma.UserAnimeUncheckedCreateNestedManyWithoutAnimeInput
+  comparisonsWon?: Prisma.ComparisonUncheckedCreateNestedManyWithoutWinnerAnimeInput
+  comparisonsLost?: Prisma.ComparisonUncheckedCreateNestedManyWithoutLoserAnimeInput
+}
+
+export type AnimeCreateOrConnectWithoutRatingsInput = {
+  where: Prisma.AnimeWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnimeCreateWithoutRatingsInput, Prisma.AnimeUncheckedCreateWithoutRatingsInput>
+}
+
+export type AnimeUpsertWithoutRatingsInput = {
+  update: Prisma.XOR<Prisma.AnimeUpdateWithoutRatingsInput, Prisma.AnimeUncheckedUpdateWithoutRatingsInput>
+  create: Prisma.XOR<Prisma.AnimeCreateWithoutRatingsInput, Prisma.AnimeUncheckedCreateWithoutRatingsInput>
+  where?: Prisma.AnimeWhereInput
+}
+
+export type AnimeUpdateToOneWithWhereWithoutRatingsInput = {
+  where?: Prisma.AnimeWhereInput
+  data: Prisma.XOR<Prisma.AnimeUpdateWithoutRatingsInput, Prisma.AnimeUncheckedUpdateWithoutRatingsInput>
+}
+
+export type AnimeUpdateWithoutRatingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  malAnimeId?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userAnime?: Prisma.UserAnimeUpdateManyWithoutAnimeNestedInput
+  comparisonsWon?: Prisma.ComparisonUpdateManyWithoutWinnerAnimeNestedInput
+  comparisonsLost?: Prisma.ComparisonUpdateManyWithoutLoserAnimeNestedInput
+}
+
+export type AnimeUncheckedUpdateWithoutRatingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  malAnimeId?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userAnime?: Prisma.UserAnimeUncheckedUpdateManyWithoutAnimeNestedInput
+  comparisonsWon?: Prisma.ComparisonUncheckedUpdateManyWithoutWinnerAnimeNestedInput
+  comparisonsLost?: Prisma.ComparisonUncheckedUpdateManyWithoutLoserAnimeNestedInput
+}
+
+export type AnimeCreateWithoutComparisonsWonInput = {
+  id?: string
+  malAnimeId: number
+  title: string
+  imageUrl?: string | null
+  updatedAt?: Date | string
+  userAnime?: Prisma.UserAnimeCreateNestedManyWithoutAnimeInput
+  ratings?: Prisma.RatingCreateNestedManyWithoutAnimeInput
+  comparisonsLost?: Prisma.ComparisonCreateNestedManyWithoutLoserAnimeInput
+}
+
+export type AnimeUncheckedCreateWithoutComparisonsWonInput = {
+  id?: string
+  malAnimeId: number
+  title: string
+  imageUrl?: string | null
+  updatedAt?: Date | string
+  userAnime?: Prisma.UserAnimeUncheckedCreateNestedManyWithoutAnimeInput
+  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutAnimeInput
+  comparisonsLost?: Prisma.ComparisonUncheckedCreateNestedManyWithoutLoserAnimeInput
+}
+
+export type AnimeCreateOrConnectWithoutComparisonsWonInput = {
+  where: Prisma.AnimeWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnimeCreateWithoutComparisonsWonInput, Prisma.AnimeUncheckedCreateWithoutComparisonsWonInput>
+}
+
+export type AnimeCreateWithoutComparisonsLostInput = {
+  id?: string
+  malAnimeId: number
+  title: string
+  imageUrl?: string | null
+  updatedAt?: Date | string
+  userAnime?: Prisma.UserAnimeCreateNestedManyWithoutAnimeInput
+  ratings?: Prisma.RatingCreateNestedManyWithoutAnimeInput
+  comparisonsWon?: Prisma.ComparisonCreateNestedManyWithoutWinnerAnimeInput
+}
+
+export type AnimeUncheckedCreateWithoutComparisonsLostInput = {
+  id?: string
+  malAnimeId: number
+  title: string
+  imageUrl?: string | null
+  updatedAt?: Date | string
+  userAnime?: Prisma.UserAnimeUncheckedCreateNestedManyWithoutAnimeInput
+  ratings?: Prisma.RatingUncheckedCreateNestedManyWithoutAnimeInput
+  comparisonsWon?: Prisma.ComparisonUncheckedCreateNestedManyWithoutWinnerAnimeInput
+}
+
+export type AnimeCreateOrConnectWithoutComparisonsLostInput = {
+  where: Prisma.AnimeWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnimeCreateWithoutComparisonsLostInput, Prisma.AnimeUncheckedCreateWithoutComparisonsLostInput>
+}
+
+export type AnimeUpsertWithoutComparisonsWonInput = {
+  update: Prisma.XOR<Prisma.AnimeUpdateWithoutComparisonsWonInput, Prisma.AnimeUncheckedUpdateWithoutComparisonsWonInput>
+  create: Prisma.XOR<Prisma.AnimeCreateWithoutComparisonsWonInput, Prisma.AnimeUncheckedCreateWithoutComparisonsWonInput>
+  where?: Prisma.AnimeWhereInput
+}
+
+export type AnimeUpdateToOneWithWhereWithoutComparisonsWonInput = {
+  where?: Prisma.AnimeWhereInput
+  data: Prisma.XOR<Prisma.AnimeUpdateWithoutComparisonsWonInput, Prisma.AnimeUncheckedUpdateWithoutComparisonsWonInput>
+}
+
+export type AnimeUpdateWithoutComparisonsWonInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  malAnimeId?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userAnime?: Prisma.UserAnimeUpdateManyWithoutAnimeNestedInput
+  ratings?: Prisma.RatingUpdateManyWithoutAnimeNestedInput
+  comparisonsLost?: Prisma.ComparisonUpdateManyWithoutLoserAnimeNestedInput
+}
+
+export type AnimeUncheckedUpdateWithoutComparisonsWonInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  malAnimeId?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userAnime?: Prisma.UserAnimeUncheckedUpdateManyWithoutAnimeNestedInput
+  ratings?: Prisma.RatingUncheckedUpdateManyWithoutAnimeNestedInput
+  comparisonsLost?: Prisma.ComparisonUncheckedUpdateManyWithoutLoserAnimeNestedInput
+}
+
+export type AnimeUpsertWithoutComparisonsLostInput = {
+  update: Prisma.XOR<Prisma.AnimeUpdateWithoutComparisonsLostInput, Prisma.AnimeUncheckedUpdateWithoutComparisonsLostInput>
+  create: Prisma.XOR<Prisma.AnimeCreateWithoutComparisonsLostInput, Prisma.AnimeUncheckedCreateWithoutComparisonsLostInput>
+  where?: Prisma.AnimeWhereInput
+}
+
+export type AnimeUpdateToOneWithWhereWithoutComparisonsLostInput = {
+  where?: Prisma.AnimeWhereInput
+  data: Prisma.XOR<Prisma.AnimeUpdateWithoutComparisonsLostInput, Prisma.AnimeUncheckedUpdateWithoutComparisonsLostInput>
+}
+
+export type AnimeUpdateWithoutComparisonsLostInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  malAnimeId?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userAnime?: Prisma.UserAnimeUpdateManyWithoutAnimeNestedInput
+  ratings?: Prisma.RatingUpdateManyWithoutAnimeNestedInput
+  comparisonsWon?: Prisma.ComparisonUpdateManyWithoutWinnerAnimeNestedInput
+}
+
+export type AnimeUncheckedUpdateWithoutComparisonsLostInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  malAnimeId?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userAnime?: Prisma.UserAnimeUncheckedUpdateManyWithoutAnimeNestedInput
+  ratings?: Prisma.RatingUncheckedUpdateManyWithoutAnimeNestedInput
+  comparisonsWon?: Prisma.ComparisonUncheckedUpdateManyWithoutWinnerAnimeNestedInput
 }
 
 
@@ -430,10 +685,16 @@ export type AnimeUncheckedUpdateWithoutUserAnimeInput = {
 
 export type AnimeCountOutputType = {
   userAnime: number
+  ratings: number
+  comparisonsWon: number
+  comparisonsLost: number
 }
 
 export type AnimeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   userAnime?: boolean | AnimeCountOutputTypeCountUserAnimeArgs
+  ratings?: boolean | AnimeCountOutputTypeCountRatingsArgs
+  comparisonsWon?: boolean | AnimeCountOutputTypeCountComparisonsWonArgs
+  comparisonsLost?: boolean | AnimeCountOutputTypeCountComparisonsLostArgs
 }
 
 /**
@@ -453,6 +714,27 @@ export type AnimeCountOutputTypeCountUserAnimeArgs<ExtArgs extends runtime.Types
   where?: Prisma.UserAnimeWhereInput
 }
 
+/**
+ * AnimeCountOutputType without action
+ */
+export type AnimeCountOutputTypeCountRatingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RatingWhereInput
+}
+
+/**
+ * AnimeCountOutputType without action
+ */
+export type AnimeCountOutputTypeCountComparisonsWonArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ComparisonWhereInput
+}
+
+/**
+ * AnimeCountOutputType without action
+ */
+export type AnimeCountOutputTypeCountComparisonsLostArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ComparisonWhereInput
+}
+
 
 export type AnimeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -461,6 +743,9 @@ export type AnimeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   imageUrl?: boolean
   updatedAt?: boolean
   userAnime?: boolean | Prisma.Anime$userAnimeArgs<ExtArgs>
+  ratings?: boolean | Prisma.Anime$ratingsArgs<ExtArgs>
+  comparisonsWon?: boolean | Prisma.Anime$comparisonsWonArgs<ExtArgs>
+  comparisonsLost?: boolean | Prisma.Anime$comparisonsLostArgs<ExtArgs>
   _count?: boolean | Prisma.AnimeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["anime"]>
 
@@ -491,6 +776,9 @@ export type AnimeSelectScalar = {
 export type AnimeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "malAnimeId" | "title" | "imageUrl" | "updatedAt", ExtArgs["result"]["anime"]>
 export type AnimeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   userAnime?: boolean | Prisma.Anime$userAnimeArgs<ExtArgs>
+  ratings?: boolean | Prisma.Anime$ratingsArgs<ExtArgs>
+  comparisonsWon?: boolean | Prisma.Anime$comparisonsWonArgs<ExtArgs>
+  comparisonsLost?: boolean | Prisma.Anime$comparisonsLostArgs<ExtArgs>
   _count?: boolean | Prisma.AnimeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AnimeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -500,6 +788,9 @@ export type $AnimePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "Anime"
   objects: {
     userAnime: Prisma.$UserAnimePayload<ExtArgs>[]
+    ratings: Prisma.$RatingPayload<ExtArgs>[]
+    comparisonsWon: Prisma.$ComparisonPayload<ExtArgs>[]
+    comparisonsLost: Prisma.$ComparisonPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -902,6 +1193,9 @@ readonly fields: AnimeFieldRefs;
 export interface Prisma__AnimeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   userAnime<T extends Prisma.Anime$userAnimeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$userAnimeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserAnimePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ratings<T extends Prisma.Anime$ratingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comparisonsWon<T extends Prisma.Anime$comparisonsWonArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$comparisonsWonArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComparisonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comparisonsLost<T extends Prisma.Anime$comparisonsLostArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Anime$comparisonsLostArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComparisonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1345,6 +1639,78 @@ export type Anime$userAnimeArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.UserAnimeScalarFieldEnum | Prisma.UserAnimeScalarFieldEnum[]
+}
+
+/**
+ * Anime.ratings
+ */
+export type Anime$ratingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Rating
+   */
+  select?: Prisma.RatingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Rating
+   */
+  omit?: Prisma.RatingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RatingInclude<ExtArgs> | null
+  where?: Prisma.RatingWhereInput
+  orderBy?: Prisma.RatingOrderByWithRelationInput | Prisma.RatingOrderByWithRelationInput[]
+  cursor?: Prisma.RatingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RatingScalarFieldEnum | Prisma.RatingScalarFieldEnum[]
+}
+
+/**
+ * Anime.comparisonsWon
+ */
+export type Anime$comparisonsWonArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Comparison
+   */
+  select?: Prisma.ComparisonSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Comparison
+   */
+  omit?: Prisma.ComparisonOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ComparisonInclude<ExtArgs> | null
+  where?: Prisma.ComparisonWhereInput
+  orderBy?: Prisma.ComparisonOrderByWithRelationInput | Prisma.ComparisonOrderByWithRelationInput[]
+  cursor?: Prisma.ComparisonWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ComparisonScalarFieldEnum | Prisma.ComparisonScalarFieldEnum[]
+}
+
+/**
+ * Anime.comparisonsLost
+ */
+export type Anime$comparisonsLostArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Comparison
+   */
+  select?: Prisma.ComparisonSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Comparison
+   */
+  omit?: Prisma.ComparisonOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ComparisonInclude<ExtArgs> | null
+  where?: Prisma.ComparisonWhereInput
+  orderBy?: Prisma.ComparisonOrderByWithRelationInput | Prisma.ComparisonOrderByWithRelationInput[]
+  cursor?: Prisma.ComparisonWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ComparisonScalarFieldEnum | Prisma.ComparisonScalarFieldEnum[]
 }
 
 /**

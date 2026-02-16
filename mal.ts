@@ -1,3 +1,4 @@
+import { UserAnimeStatus } from "@/prisma/generated/enums";
 import { prisma } from "./prisma";
 
 type MalTokenResponse = {
@@ -19,8 +20,8 @@ type MalAnimeListItem = {
   };
 };
 
-function mapStatusToEnum(status: "watching" | "completed") {
-  return status === "watching" ? "WATCHING" : "COMPLETED";
+function mapStatusToEnum(status: "watching" | "completed"): UserAnimeStatus {
+  return status === "watching" ? UserAnimeStatus.WATCHING : UserAnimeStatus.COMPLETED;
 }
 
 async function refreshAccessToken(userId: string) {
@@ -129,16 +130,14 @@ export async function syncMalList(userId: string) {
 
   // This set is used to find what got removed
   const currentMalIds = new Set<number>();
+  let addedCount = 0;
 
   // Upsert Anime + UserAnime
   for (const { item, status } of entries) {
     const malAnimeId = item.node.id;
     currentMalIds.add(malAnimeId);
 
-    const imageUrl =
-      item.node.main_picture?.large ??
-      item.node.main_picture?.medium ??
-      null;
+    const imageUrl = item.node.main_picture?.large ?? item.node.main_picture?.medium ?? null;
 
     const anime = await prisma.anime.upsert({
       where: { malAnimeId },
@@ -154,22 +153,35 @@ export async function syncMalList(userId: string) {
       select: { id: true },
     });
 
-    // Upsert UserAnime via unique (userId, animeId)
-    // If it didn't exist, it will be created with needsRanking=true by default
-    await prisma.userAnime.upsert({
+    const existing = await prisma.userAnime.findUnique({
       where: { userId_animeId: { userId, animeId: anime.id } },
-      update: {
-        status: mapStatusToEnum(status) as any,
+      select: { id: true, removedFromMAL: true, needsRanking: true },
+    });
+
+    // New entries and re-added entries should re-enter the ranking queue.
+    if (!existing) {
+      addedCount += 1;
+      await prisma.userAnime.create({
+        data: {
+          userId,
+          animeId: anime.id,
+          status: mapStatusToEnum(status),
+          removedFromMAL: false,
+          needsRanking: true,
+          firstSeenAt: now,
+          lastSeenAt: now,
+        },
+      });
+      continue;
+    }
+
+    if (existing.removedFromMAL) addedCount += 1;
+    await prisma.userAnime.update({
+      where: { id: existing.id },
+      data: {
+        status: mapStatusToEnum(status),
         removedFromMAL: false,
-        lastSeenAt: now,
-      },
-      create: {
-        userId,
-        animeId: anime.id,
-        status: mapStatusToEnum(status) as any,
-        removedFromMAL: false,
-        needsRanking: true,
-        firstSeenAt: now,
+        needsRanking: existing.removedFromMAL ? true : existing.needsRanking,
         lastSeenAt: now,
       },
     });
@@ -180,7 +192,7 @@ export async function syncMalList(userId: string) {
     where: {
       userId,
       removedFromMAL: false,
-      status: { in: ["WATCHING", "COMPLETED"] },
+      status: { in: [UserAnimeStatus.WATCHING, UserAnimeStatus.COMPLETED] },
     },
     include: { anime: { select: { malAnimeId: true } } },
   });
@@ -189,7 +201,9 @@ export async function syncMalList(userId: string) {
     .filter((ua) => !currentMalIds.has(ua.anime.malAnimeId))
     .map((ua) => ua.id);
 
-  if (toRemoveIds.length > 0) {
+  const removedCount = toRemoveIds.length;
+
+  if (removedCount > 0) {
     await prisma.userAnime.updateMany({
       where: { id: { in: toRemoveIds } },
       data: {
@@ -210,7 +224,7 @@ export async function syncMalList(userId: string) {
     where: {
       userId,
       removedFromMAL: false,
-      status: { in: ["WATCHING", "COMPLETED"] },
+      status: { in: [UserAnimeStatus.WATCHING, UserAnimeStatus.COMPLETED] },
     },
   });
 
@@ -218,10 +232,10 @@ export async function syncMalList(userId: string) {
     where: {
       userId,
       removedFromMAL: false,
-      status: { in: ["WATCHING", "COMPLETED"] },
+      status: { in: [UserAnimeStatus.WATCHING, UserAnimeStatus.COMPLETED] },
       needsRanking: true,
     },
   });
 
-  return { eligibleCount, needsRankingCount };
+  return { eligibleCount, needsRankingCount, addedCount, removedCount };
 }

@@ -389,7 +389,9 @@ export const ModelName = {
   MalAccount: 'MalAccount',
   Session: 'Session',
   Anime: 'Anime',
-  UserAnime: 'UserAnime'
+  UserAnime: 'UserAnime',
+  Rating: 'Rating',
+  Comparison: 'Comparison'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -405,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "healthcheck" | "user" | "malAccount" | "session" | "anime" | "userAnime"
+    modelProps: "healthcheck" | "user" | "malAccount" | "session" | "anime" | "userAnime" | "rating" | "comparison"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -853,6 +855,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Rating: {
+      payload: Prisma.$RatingPayload<ExtArgs>
+      fields: Prisma.RatingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RatingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RatingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RatingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RatingPayload>
+        }
+        findFirst: {
+          args: Prisma.RatingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RatingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RatingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RatingPayload>
+        }
+        findMany: {
+          args: Prisma.RatingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RatingPayload>[]
+        }
+        create: {
+          args: Prisma.RatingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RatingPayload>
+        }
+        createMany: {
+          args: Prisma.RatingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RatingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RatingPayload>[]
+        }
+        delete: {
+          args: Prisma.RatingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RatingPayload>
+        }
+        update: {
+          args: Prisma.RatingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RatingPayload>
+        }
+        deleteMany: {
+          args: Prisma.RatingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RatingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RatingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RatingPayload>[]
+        }
+        upsert: {
+          args: Prisma.RatingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RatingPayload>
+        }
+        aggregate: {
+          args: Prisma.RatingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRating>
+        }
+        groupBy: {
+          args: Prisma.RatingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RatingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RatingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RatingCountAggregateOutputType> | number
+        }
+      }
+    }
+    Comparison: {
+      payload: Prisma.$ComparisonPayload<ExtArgs>
+      fields: Prisma.ComparisonFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ComparisonFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComparisonPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ComparisonFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComparisonPayload>
+        }
+        findFirst: {
+          args: Prisma.ComparisonFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComparisonPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ComparisonFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComparisonPayload>
+        }
+        findMany: {
+          args: Prisma.ComparisonFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComparisonPayload>[]
+        }
+        create: {
+          args: Prisma.ComparisonCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComparisonPayload>
+        }
+        createMany: {
+          args: Prisma.ComparisonCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ComparisonCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComparisonPayload>[]
+        }
+        delete: {
+          args: Prisma.ComparisonDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComparisonPayload>
+        }
+        update: {
+          args: Prisma.ComparisonUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComparisonPayload>
+        }
+        deleteMany: {
+          args: Prisma.ComparisonDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ComparisonUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ComparisonUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComparisonPayload>[]
+        }
+        upsert: {
+          args: Prisma.ComparisonUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComparisonPayload>
+        }
+        aggregate: {
+          args: Prisma.ComparisonAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateComparison>
+        }
+        groupBy: {
+          args: Prisma.ComparisonGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ComparisonGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ComparisonCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ComparisonCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -961,6 +1111,28 @@ export const UserAnimeScalarFieldEnum = {
 } as const
 
 export type UserAnimeScalarFieldEnum = (typeof UserAnimeScalarFieldEnum)[keyof typeof UserAnimeScalarFieldEnum]
+
+
+export const RatingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  animeId: 'animeId',
+  value: 'value',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RatingScalarFieldEnum = (typeof RatingScalarFieldEnum)[keyof typeof RatingScalarFieldEnum]
+
+
+export const ComparisonScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  winnerAnimeId: 'winnerAnimeId',
+  loserAnimeId: 'loserAnimeId',
+  createdAt: 'createdAt'
+} as const
+
+export type ComparisonScalarFieldEnum = (typeof ComparisonScalarFieldEnum)[keyof typeof ComparisonScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1170,6 +1342,8 @@ export type GlobalOmitConfig = {
   session?: Prisma.SessionOmit
   anime?: Prisma.AnimeOmit
   userAnime?: Prisma.UserAnimeOmit
+  rating?: Prisma.RatingOmit
+  comparison?: Prisma.ComparisonOmit
 }
 
 /* Types for Logging */

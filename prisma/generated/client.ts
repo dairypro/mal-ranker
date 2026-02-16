@@ -69,3 +69,13 @@ export type Anime = Prisma.AnimeModel
  * 
  */
 export type UserAnime = Prisma.UserAnimeModel
+/**
+ * Model Rating
+ * 
+ */
+export type Rating = Prisma.RatingModel
+/**
+ * Model Comparison
+ * 
+ */
+export type Comparison = Prisma.ComparisonModel
