@@ -57,6 +57,7 @@ function scoreToTen(rank: number, total: number) {
 export default function HomePage() {
   const [data, setData] = useState<HomeData | null>(null);
   const [syncing, setSyncing] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const [ranked, setRanked] = useState<RankedAnime[]>([]);
@@ -196,6 +197,20 @@ export default function HomePage() {
     }
   }
 
+  async function logout() {
+    setLoggingOut(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/auth/logout", { method: "POST" });
+      if (!res.ok) throw new Error(await res.text());
+      window.location.href = "/";
+    } catch (logoutError: unknown) {
+      setError(getErrorMessage(logoutError, "Logout failed"));
+    } finally {
+      setLoggingOut(false);
+    }
+  }
+
   useEffect(() => {
     async function init() {
       try {
@@ -263,16 +278,17 @@ export default function HomePage() {
 
         {data !== null && data.loggedIn === true && (
           <>
-            <div className="mt-8 flex items-center justify-between rounded-2xl border border-zinc-800 bg-zinc-900/30 p-4">
+            <div className="mt-8 rounded-2xl border border-zinc-800 bg-zinc-900/30 p-4">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <div className="text-sm text-zinc-400">Signed in as</div>
                 <div className="font-medium">{data.malUsername}</div>
               </div>
 
-              <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-2 sm:justify-end">
                 <button
                   onClick={copyShareUrl}
-                  className="rounded-xl border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-100 hover:bg-zinc-800"
+                  className="rounded-xl border border-zinc-700 px-3 py-2 text-sm font-medium text-zinc-100 hover:bg-zinc-800"
                 >
                   Copy share URL
                 </button>
@@ -280,10 +296,19 @@ export default function HomePage() {
                 <button
                   onClick={sync}
                   disabled={syncing}
-                  className="rounded-xl bg-zinc-100 px-4 py-2 text-sm font-medium text-black hover:bg-zinc-200 disabled:opacity-60"
+                  className="rounded-xl bg-zinc-100 px-3 py-2 text-sm font-medium text-black hover:bg-zinc-200 disabled:opacity-60"
                 >
                   {syncLabel}
                 </button>
+
+                  <button
+                    onClick={logout}
+                    disabled={loggingOut}
+                    className="rounded-xl border border-zinc-700 px-3 py-2 text-sm font-medium text-zinc-100 hover:bg-zinc-800 disabled:opacity-60"
+                  >
+                    {loggingOut ? "Logging out..." : "Logout"}
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -319,7 +344,7 @@ export default function HomePage() {
             {gateOpen && (
               <>
                 <div className="mt-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 p-6">
-                  <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex flex-wrap items-start justify-between gap-4 sm:items-center">
                     <div>
                       <div className="text-lg font-semibold">Your ranked list</div>
                       <p className="mt-1 text-sm text-zinc-300">
@@ -327,7 +352,7 @@ export default function HomePage() {
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex w-full flex-wrap items-center gap-3 sm:w-auto sm:justify-end">
                       <div className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-semibold text-black">
                         Unranked: {data.needsRankingCount}
                       </div>
@@ -356,9 +381,9 @@ export default function HomePage() {
                       {ranked.map((item) => (
                         <div
                           key={item.animeId}
-                          className="flex items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-950/60 p-2"
+                          className="flex items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-950/60 p-2 sm:gap-3"
                         >
-                          <div className="w-9 text-center text-sm font-semibold text-zinc-300">
+                          <div className="w-8 text-center text-sm font-semibold text-zinc-300 sm:w-9">
                             #{item.rank}
                           </div>
 
@@ -384,7 +409,7 @@ export default function HomePage() {
                             <div className="text-xs text-zinc-400">MAL #{item.malAnimeId}</div>
                           </div>
 
-                          <div className="text-right">
+                          <div className="w-12 text-right sm:w-auto">
                             <div className="text-xs text-zinc-400">Score</div>
                             <div className="text-sm font-semibold">
                               {scoreToTen(item.rank, ranked.length)}
@@ -402,9 +427,9 @@ export default function HomePage() {
       </div>
 
       {rankingOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-          <div className="w-full max-w-4xl rounded-2xl border border-zinc-700 bg-zinc-900 p-5">
-            <div className="flex items-center justify-between">
+        <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/70 p-3 sm:items-center sm:p-4">
+          <div className="my-4 w-full max-w-4xl rounded-2xl border border-zinc-700 bg-zinc-900 p-4 sm:p-5">
+            <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <div className="text-lg font-semibold">Choose the better anime</div>
                 <p className="mt-1 text-sm text-zinc-400">Your choice updates both ratings immediately.</p>
@@ -440,7 +465,7 @@ export default function HomePage() {
             )}
 
             {!loadingMatchup && currentMatchup && (
-              <div className="mt-6 grid gap-4 md:grid-cols-2">
+              <div className="mt-6 grid gap-3 sm:gap-4 md:grid-cols-2">
                 {[currentMatchup.A, currentMatchup.B].map((anime, idx) => {
                   const isLeft = idx === 0;
                   const winnerAnimeId = anime.animeId;
@@ -453,7 +478,7 @@ export default function HomePage() {
                       onClick={() => submitChoice(winnerAnimeId, loserAnimeId)}
                       className="rounded-2xl border border-zinc-700 bg-zinc-950/70 p-3 text-left hover:border-zinc-500 disabled:opacity-70"
                     >
-                      <div className="h-56 overflow-hidden rounded-xl bg-zinc-800">
+                      <div className="h-48 overflow-hidden rounded-xl bg-zinc-800 sm:h-56">
                         {anime.imageUrl ? (
                           <Image
                             src={anime.imageUrl}
